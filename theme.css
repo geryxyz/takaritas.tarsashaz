@@ -1,0 +1,22 @@
+table {
+	border-collapse: collapse;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+td {
+	padding: 5px;
+}
+
+div.multi {
+	column-count: 3;
+}
+
+div.per_flat {
+	break-inside: avoid-column;
+	border: solid black 1pt;
+	margin: 10pt 0pt;
+	padding: 5pt;
+}
