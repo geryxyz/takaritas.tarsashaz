@@ -1,6 +1,7 @@
 import datetime
 import random
 import pdb
+import io
 
 list_of_flat = [1,2,3,4,5,6,7,8]
 name_of_months = ['január', 'február', 'március', 'április', 'május', 'június', 'július', 'augusztus', 'szeptember', 'október', 'november', 'december']
@@ -109,7 +110,7 @@ if __name__ == '__main__':
 	inner_all, inner_per_flat = generate_list(datetime.timedelta(days=7))
 	outer_all, outer_per_flat = generate_list(datetime.timedelta(days=14))
 
-	with open('all_flat.html', 'w') as all_flat:
+	with io.open('all_flat.html', 'w', encoding='utf-8') as all_flat:
 		write_html_init(all_flat)
 
 		all_flat.write('<a href="index.html">Vissza a kezdő oldalra.</a><br/>\n')
@@ -126,7 +127,7 @@ if __name__ == '__main__':
 
 		write_html_teardown(all_flat)
 
-	with open('per_flat.html', 'w') as per_flat:
+	with io.open('per_flat.html', 'w', encoding='utf-8') as per_flat:
 		write_html_init(per_flat)
 		
 		per_flat.write('<a href="index.html">Vissza a kezdő oldalra.</a><br/>\n')
@@ -140,7 +141,7 @@ if __name__ == '__main__':
 		
 		write_html_teardown(per_flat)
 
-	with open('index.html', 'w') as index:
+	with io.open('index.html', 'w', encoding='utf-8') as index:
 		write_html_init(index)
 
 		index.write('<h1>Lépcsőház takarítás beosztása</h1>\n')
