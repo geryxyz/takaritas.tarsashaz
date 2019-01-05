@@ -113,24 +113,28 @@ if __name__ == '__main__':
 	with io.open('all_flat.html', 'w', encoding='utf-8') as all_flat:
 		write_html_init(all_flat)
 
-		all_flat.write('<a href="index.html">Vissza a kezdő oldalra.</a><br/>\n')
+		all_flat.write('<a href="index.html">Vissza a kezdő oldalra.</a>\n')
 
 		all_flat.write('<h1>Lépcsőház takarítás beosztása</h1>')
-		all_flat.write('<p>Idei véletlenszerű sorrend: %s</p>' % ', '.join(['%d. lakás' % flat for flat in current_rank_inner]))
+		all_flat.write('<p>Idei véletlenszerű sorrend: %s<br/>A beosztás elérhető az interneten is: https://geryxyz.github.io/takaritas.tarsashaz/</p>' % ', '.join(['%d. lakás' % flat for flat in current_rank_inner]))
 		month_matrix = create_month_matrix(inner_all)
 		write_table(all_flat, month_matrix)
+		
+		all_flat.write('<img style="width:200px" src="qrcode.png"/>')
 
 		all_flat.write('<h1>Udvar és előkert takarítás beosztása</h1>')
-		all_flat.write('<p>Idei véletlenszerű sorrend: %s</p>' % ', '.join(['%d. lakás' % flat for flat in current_rank_outer]))
+		all_flat.write('<p>Idei véletlenszerű sorrend: %s<br/>A beosztás elérhető az interneten is: https://geryxyz.github.io/takaritas.tarsashaz/</p>' % ', '.join(['%d. lakás' % flat for flat in current_rank_outer]))
 		month_matrix = create_month_matrix(outer_all)
 		write_table(all_flat, month_matrix)
+
+		all_flat.write('<img style="width:200px" src="qrcode.png"/>')
 
 		write_html_teardown(all_flat)
 
 	with io.open('per_flat.html', 'w', encoding='utf-8') as per_flat:
 		write_html_init(per_flat)
 		
-		per_flat.write('<a href="index.html">Vissza a kezdő oldalra.</a><br/>\n')
+		per_flat.write('<a href="index.html">Vissza a kezdő oldalra.</a>\n')
 
 		per_flat.write('<h1>Lépcsőház takarítás beosztása</h1>')
 		per_flat.write('<p>Kivágható lakásonkénti beosztása.</p>')
@@ -153,5 +157,7 @@ if __name__ == '__main__':
 		index.write('<h1>Részletes beosztás</h1>\n')
 		index.write('<p>Lépcsőház takarítás teljes (minden lakás) beosztása <a href="all_flat.html">ide kattintva</a> érhető el.</p>\n')
 		index.write('<p>Lépcsőház takarítás lakásonkénti beosztása <a href="per_flat.html">ide kattintva</a> érhető el.</p>\n')
+
+		index.write('<img style="width:200px" src="qrcode.png"/>')
 
 		write_html_teardown(index)

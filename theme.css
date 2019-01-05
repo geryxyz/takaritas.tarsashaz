@@ -1,5 +1,6 @@
 table {
 	border-collapse: collapse;
+	display: inline-block;
 }
 
 table, th, td {
@@ -19,4 +20,14 @@ div.per_flat {
 	border: solid black 1pt;
 	margin: 10pt 0pt;
 	padding: 5pt;
+}
+
+h1 {
+	/*font-size: large;*/
+	padding-bottom: 0pt;
+	margin-bottom: 0pt;
+}
+
+p {
+	margin-top: 0pt;
 }
