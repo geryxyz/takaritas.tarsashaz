@@ -80,9 +80,14 @@ def write_per_flat(output_file, per_flat_list):
 def write_current(output_file, whole_list):
 	output_file.write('<p class="current">')
 	output_file.write('<script>')
-	output_file.write("""
-		document.write("DEMO MODE");
-		now = new Date(2019, 1, 19, 0,0,0,0);""")
+	if datetime.datetime.now().date() < first_monday:
+		print("DEMO MODE") 
+		output_file.write("""
+			document.write("DEMO MODE ");
+			now = new Date(2019, 1, 19, 0,0,0,0);""")
+	else:
+		output_file.write("""
+			now = new Date();""")
 	for flat, period in whole_list:
 		start = period[0]
 		stop = period[1]
@@ -102,10 +107,15 @@ if __name__ == '__main__':
 		first_monday += datetime.timedelta(days=1)
 	print("first monday is: %s" % first_monday)
 
-	current_rank_inner = [i for i in list_of_flat]
-	current_rank_outer = [i for i in list_of_flat]
-	random.shuffle(current_rank_inner)
-	random.shuffle(current_rank_outer)
+	#comment these, rerun, set to new values
+	current_rank_inner = [3, 6, 5, 1, 8, 2, 4, 7]
+	current_rank_outer = [6, 5, 1, 2, 3, 8, 4, 7]
+
+	if not current_rank_inner or not current_rank_outer:
+		current_rank_inner = [i for i in list_of_flat]
+		current_rank_outer = [i for i in list_of_flat]
+		random.shuffle(current_rank_inner)
+		random.shuffle(current_rank_outer)
 	print("order for inner cleaning: " + ", ".join(map(str,current_rank_inner)))
 	print("order for outer cleaning: " + ", ".join(map(str,current_rank_outer)))
 
