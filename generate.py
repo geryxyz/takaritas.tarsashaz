@@ -47,7 +47,7 @@ def write_table(output_file, month_matrix):
 		for flat in list_of_flat:
 			output_file.write('<td>') 
 			if flat in periods:
-				output_file.write('%s</br>%s' % periods[flat])
+				output_file.write('%s - %s' % (periods[flat][0].strftime('%m. %d.'), periods[flat][1].strftime('%m. %d.')))
 			output_file.write('</td>') 
 		output_file.write('</tr>\n')
 	output_file.write('</table>\n')
@@ -128,11 +128,11 @@ if __name__ == '__main__':
 		all_flat.write('<a href="index.html">Vissza a kezdő oldalra.</a>\n')
 
 		all_flat.write('<h1>Lépcsőház takarítás beosztása</h1>')
-		all_flat.write('<p>Idei véletlenszerű sorrend: %s<br/>A beosztás elérhető az interneten is: https://geryxyz.github.io/takaritas.tarsashaz/</p>' % ', '.join(['%d. lakás' % flat for flat in current_rank_inner]))
+		all_flat.write('<p>Az adott lakás lakói felelősek a takarításért a táblázatban megadott időszakban.<br/>Idei véletlenszerű sorrend: %s</p>' % ', '.join(['%d. lakás' % flat for flat in current_rank_inner]))
 		month_matrix = create_month_matrix(inner_all)
 		write_table(all_flat, month_matrix)
 		
-		all_flat.write('<img style="width:200px" src="qrcode.png"/>')
+		all_flat.write('<p><img style="width:100px" src="qrcode.png"/>A beosztás elérhető az interneten is: https://geryxyz.github.io/takaritas.tarsashaz/</p>')
 
 		write_html_teardown(all_flat)
 
@@ -142,11 +142,11 @@ if __name__ == '__main__':
 		all_flat.write('<a href="index.html">Vissza a kezdő oldalra.</a>\n')
 
 		all_flat.write('<h1>Udvar és előkert takarítás beosztása</h1>')
-		all_flat.write('<p>Idei véletlenszerű sorrend: %s<br/>A beosztás elérhető az interneten is: https://geryxyz.github.io/takaritas.tarsashaz/</p>' % ', '.join(['%d. lakás' % flat for flat in current_rank_outer]))
+		all_flat.write('<p>Az adott lakás lakói felelősek a takarításért a táblázatban megadott időszakban.<br/>Idei véletlenszerű sorrend: %s</p>' % ', '.join(['%d. lakás' % flat for flat in current_rank_outer]))
 		month_matrix = create_month_matrix(outer_all)
 		write_table(all_flat, month_matrix)
 		
-		all_flat.write('<img style="width:200px" src="qrcode.png"/>')
+		all_flat.write('<p><img style="width:100px" src="qrcode.png"/>A beosztás elérhető az interneten is: https://geryxyz.github.io/takaritas.tarsashaz/</p>')
 
 		write_html_teardown(all_flat)
 
