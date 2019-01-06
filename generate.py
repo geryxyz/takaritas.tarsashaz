@@ -19,7 +19,7 @@ def generate_list(duration):
 		period = (start_day, end_day)
 		per_flat[current_flat].append(period)
 		whole_list.append((current_flat, period))
-		print("flat #%d -> %s - %s" % (current_flat, period[0], period[1]))
+		#print("flat #%d -> %s - %s" % (current_flat, period[0], period[1]))
 		index += 1
 		start_day += duration
 	return whole_list, per_flat
@@ -78,6 +78,7 @@ def write_per_flat(output_file, per_flat_list):
 	output_file.write('</div>')
 
 def write_current(output_file, whole_list):
+	output_file.write('<p class="current">')
 	output_file.write('<script>')
 	output_file.write("""
 		document.write("DEMO MODE");
@@ -92,6 +93,7 @@ def write_current(output_file, whole_list):
 				document.write("Jelenleg a %d. lakás feladata.");
 			}""" % (start.strftime('%Y-%m-%d'), stop.strftime('%Y-%m-%d'), flat))
 	output_file.write('</script>')
+	output_file.write('</p>')
 
 if __name__ == '__main__':
 	current_year = datetime.datetime.now().year
@@ -110,7 +112,7 @@ if __name__ == '__main__':
 	inner_all, inner_per_flat = generate_list(datetime.timedelta(days=7))
 	outer_all, outer_per_flat = generate_list(datetime.timedelta(days=14))
 
-	with io.open('all_flat.html', 'w', encoding='utf-8') as all_flat:
+	with io.open('inner_all_flat.html', 'w', encoding='utf-8') as all_flat:
 		write_html_init(all_flat)
 
 		all_flat.write('<a href="index.html">Vissza a kezdő oldalra.</a>\n')
@@ -122,16 +124,23 @@ if __name__ == '__main__':
 		
 		all_flat.write('<img style="width:200px" src="qrcode.png"/>')
 
+		write_html_teardown(all_flat)
+
+	with io.open('outer_all_flat.html', 'w', encoding='utf-8') as all_flat:
+		write_html_init(all_flat)
+
+		all_flat.write('<a href="index.html">Vissza a kezdő oldalra.</a>\n')
+
 		all_flat.write('<h1>Udvar és előkert takarítás beosztása</h1>')
 		all_flat.write('<p>Idei véletlenszerű sorrend: %s<br/>A beosztás elérhető az interneten is: https://geryxyz.github.io/takaritas.tarsashaz/</p>' % ', '.join(['%d. lakás' % flat for flat in current_rank_outer]))
 		month_matrix = create_month_matrix(outer_all)
 		write_table(all_flat, month_matrix)
-
+		
 		all_flat.write('<img style="width:200px" src="qrcode.png"/>')
 
 		write_html_teardown(all_flat)
 
-	with io.open('per_flat.html', 'w', encoding='utf-8') as per_flat:
+	with io.open('inner_per_flat.html', 'w', encoding='utf-8') as per_flat:
 		write_html_init(per_flat)
 		
 		per_flat.write('<a href="index.html">Vissza a kezdő oldalra.</a>\n')
@@ -139,6 +148,14 @@ if __name__ == '__main__':
 		per_flat.write('<h1>Lépcsőház takarítás beosztása</h1>')
 		per_flat.write('<p>Kivágható lakásonkénti beosztása.</p>')
 		write_per_flat(per_flat, inner_per_flat)
+		
+		write_html_teardown(per_flat)
+
+	with io.open('outer_per_flat.html', 'w', encoding='utf-8') as per_flat:
+		write_html_init(per_flat)
+		
+		per_flat.write('<a href="index.html">Vissza a kezdő oldalra.</a>\n')
+
 		per_flat.write('<h1>Udvar és előkert takarítás beosztása</h1>')
 		per_flat.write('<p>Kivágható lakásonkénti beosztása.</p>')
 		write_per_flat(per_flat, outer_per_flat)
@@ -151,12 +168,16 @@ if __name__ == '__main__':
 		index.write('<h1>Lépcsőház takarítás beosztása</h1>\n')
 		write_current(index, inner_all)
 
+		index.write('<h2>Részletes beosztás</h2>\n')
+		index.write('<p>Lépcsőház takarítás teljes (minden lakás) beosztása <a href="inner_all_flat.html">ide kattintva</a> érhető el.</p>\n')
+		index.write('<p>Lépcsőház takarítás lakásonkénti beosztása <a href="inner_per_flat.html">ide kattintva</a> érhető el.</p>\n')
+
 		index.write('<h1>Udvar és előkert takarítás beosztása</h1>\n')
 		write_current(index, outer_all)
 
-		index.write('<h1>Részletes beosztás</h1>\n')
-		index.write('<p>Lépcsőház takarítás teljes (minden lakás) beosztása <a href="all_flat.html">ide kattintva</a> érhető el.</p>\n')
-		index.write('<p>Lépcsőház takarítás lakásonkénti beosztása <a href="per_flat.html">ide kattintva</a> érhető el.</p>\n')
+		index.write('<h2>Részletes beosztás</h2>\n')
+		index.write('<p>Udvar és előkert takarítás teljes (minden lakás) beosztása <a href="outer_all_flat.html">ide kattintva</a> érhető el.</p>\n')
+		index.write('<p>Udvar és előkert takarítás lakásonkénti beosztása <a href="outer_per_flat.html">ide kattintva</a> érhető el.</p>\n')
 
 		index.write('<img style="width:200px" src="qrcode.png"/>')
 

@@ -31,3 +31,12 @@ h1 {
 p {
 	margin-top: 0pt;
 }
+
+p.current {
+	margin: 10pt;
+	padding: 5pt;
+	font-size: large;
+	border: solid black 1pt;
+	width: auto;
+	display: inline-block;
+}
