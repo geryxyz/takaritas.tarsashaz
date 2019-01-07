@@ -12,14 +12,15 @@ td {
 }
 
 div.multi {
-	column-count: 3;
+	column-count: 1;
 }
 
 div.per_flat {
 	break-inside: avoid-column;
 	border: solid black 1pt;
-	margin: 10pt 0pt;
-	padding: 5pt;
+	margin: 10pt;
+	padding: 0pt 10pt;
+	display: inline-block;
 }
 
 h1 {
